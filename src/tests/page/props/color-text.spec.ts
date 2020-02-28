@@ -1,6 +1,10 @@
-import { getColorText as renderColorText } from '../../../page/props/color-text';
+import { getColorText } from '../../../page/props/color-text';
 
 describe('renderColorText', () => {
+    function renderColorText({ colorTextType, hexColor }: any) {
+        return getColorText(colorTextType, hexColor);
+    }
+
     test('should return hex colors as-is', () => {
         expect(
             renderColorText({ colorTextType: 'HEX', hexColor: '#000000' }),

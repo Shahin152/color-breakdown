@@ -1,9 +1,26 @@
 import { ColorPalette } from '../color-interfaces';
-import {
-    COLOR_CLASSES,
-    PaletteProps,
-    renderPalette,
-} from '../page/render-palette';
+import { ColorTextType, getColorText } from '../page/props/color-text';
+import { COLOR_CLASSES } from '../page/props/palette';
+import { getSwatchProps } from '../page/props/swatch';
+
+interface PaletteProps {
+    readonly colors?: ColorPalette;
+    readonly colorTextType?: ColorTextType;
+}
+
+function renderPalette(props: PaletteProps, target: ParentNode) {
+    const { colors, colorTextType } = props;
+    for (const [propName, className] of COLOR_CLASSES) {
+        const swatchTarget = target.querySelector<HTMLElement>(
+            `.swatch.${className}`,
+        )!;
+        Object.assign(swatchTarget, getSwatchProps(colors?.[propName]));
+        target.querySelector('.swatch-text')!.textContent = getColorText(
+            colorTextType!,
+            swatchTarget.style.backgroundColor,
+        );
+    }
+}
 
 /**
  * Mocks a palette element for testing. Includes helper methods to make tests

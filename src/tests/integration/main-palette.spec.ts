@@ -15,7 +15,7 @@ document.body.appendChild(MAIN_PALETTE.element);
 document.body.appendChild(BACK_BUTTON);
 
 import { displayMainPalette, handleBackButton } from '../../page/main-palette';
-import { examples } from '../../db-worker/examples';
+import { EXAMPLES } from '../../db-worker/examples';
 
 BACK_BUTTON.addEventListener('click', handleBackButton);
 
@@ -41,7 +41,7 @@ describe('Main Palette Integration Test', () => {
 
     test('render example', () => {
         displayMainPalette({
-            data: examples[1],
+            data: EXAMPLES.get(1),
             firstLoad: false,
             updateHash: true,
         });

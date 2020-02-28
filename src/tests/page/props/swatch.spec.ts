@@ -1,9 +1,20 @@
-import { renderSwatch } from '../../page/render-swatch';
+import { getSwatchProps } from '../../../page/props/swatch';
+import { getColorText } from '../../../page/props/color-text';
 
 const ABCDEF = /(rgb\(171, 205, 239\)|#ABCDEF|#abcdef)/;
 const black = /(rgb\(0, 0, 0\)|#000000)/;
 
 describe('renderSwatch', () => {
+    function renderSwatch({ colorTextType, color }: any, target: HTMLElement) {
+        Object.assign(target, getSwatchProps(color));
+        if (colorTextType != undefined) {
+            target.querySelector('.swatch-text')!.textContent = getColorText(
+                colorTextType,
+                target.style.backgroundColor,
+            );
+        }
+    }
+
     test('should hide if no color is given', () => {
         const element = document.createElement('div');
         renderSwatch({ colorTextType: 'HEX', color: undefined }, element);
